@@ -1146,9 +1146,8 @@ namespace lgfx
                 lgfx::i2c::writeRegister8(i2c_port, axp_i2c_addr, axp_reg_set[i], axp_reg_set[i+1]);
               }
 
-              lgfx::i2c::bitOn(i2c_port, aw9523_i2c_addr, 0x02, 0b00000101); //port0 output ctrl
-              lgfx::i2c::bitOn(i2c_port, aw9523_i2c_addr, 0x03, 0b00000011); //port1 output ctrl
-
+              lgfx::i2c::bitOn(i2c_port, aw9523_i2c_addr, 0x02, 0b00000111); //port0 output ctrl
+              lgfx::i2c::bitOn(i2c_port, aw9523_i2c_addr, 0x03, 0b10000011); //port1 output ctrl
               static constexpr const uint8_t aw9523_reg_set[] = {
                 0x04, 0b00011000,     // CONFIG_P0
                 0x05, 0b00001100,     // CONFIG_P1
