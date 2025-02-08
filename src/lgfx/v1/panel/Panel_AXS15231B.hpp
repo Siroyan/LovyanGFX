@@ -1,34 +1,19 @@
-/*----------------------------------------------------------------------------/
- *  Lovyan GFX - Graphics library for embedded devices.
- *
- * Original Source:
- * https://github.com/lovyan03/LovyanGFX/
- *
- * Licence:
- * [FreeBSD](https://github.com/lovyan03/LovyanGFX/blob/master/license.txt)
- *
- * Author:
- * [lovyan03](https://twitter.com/lovyan03)
- *
- * Contributors:
- * [ciniml](https://github.com/ciniml)
- * [mongonta0716](https://github.com/mongonta0716)
- * [tobozo](https://github.com/tobozo)
- * /----------------------------------------------------------------------------*/
 #pragma once
 
 #if defined (ESP_PLATFORM)
 
-#include "Panel_LCD.hpp"
+#include "Panel_Device.hpp"
 
 namespace lgfx
 {
     inline namespace v1
     {
-        struct Panel_AXS15231B : public Panel_LCD
+        //----------------------------------------------------------------------------
+
+        struct Panel_AXS15231B : public Panel_Device
         {
         public:
-            Panel_AXS15231B(void) {}
+        Panel_AXS15231B(void) {}
 
             bool init(bool use_reset) override;
             void beginTransaction(void) override;
@@ -57,6 +42,8 @@ namespace lgfx
 
             /* Override */
             void setBrightness(uint8_t brightness) override;
+
+
         protected:
             bool _in_transaction = false;
 
@@ -67,6 +54,8 @@ namespace lgfx
             void end_qspi();
             void write_bytes(const uint8_t* data, uint32_t len, bool use_dma);
         };
+
+        //----------------------------------------------------------------------------
     }
 }
 

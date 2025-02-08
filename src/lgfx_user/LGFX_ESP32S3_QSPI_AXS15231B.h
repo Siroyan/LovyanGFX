@@ -1,15 +1,15 @@
 #pragma once
 #include <LovyanGFX.hpp>
-#include <lgfx/v1/panel/Panel_SH8601Z.hpp>
+#include <lgfx/v1/panel/Panel_AXS15231B.hpp>
 #include "esp_log.h"
 
 
 /// 独自の設定を行うクラスを、LGFX_Deviceから派生して作成します。
 class LGFX : public lgfx::LGFX_Device {
     // 接続するパネルの型にあったインスタンスを用意します。
-    lgfx::Panel_SH8601Z     _panel_instance;
+    lgfx::Panel_AXS15231B   _panel_instance;
     // パネルを接続するバスの種類にあったインスタンスを用意します。
-    lgfx::Bus_QSPI      _bus_instance;
+    lgfx::Bus_QSPI          _bus_instance;
 
 public:
     // コンストラクタを作成し、ここで各種設定を行います。
@@ -22,12 +22,12 @@ public:
             // SPIバスの設定
             cfg.spi_host = SPI3_HOST;     // 使用するSPIを選択  ESP32-S2,C3 : SPI2_HOST or SPI3_HOST / ESP32 : VSPI_HOST or HSPI_HOST
             // ※ ESP-IDFバージョンアップに伴い、VSPI_HOST , HSPI_HOSTの記述は非推奨になるため、エラーが出る場合は代わりにSPI2_HOST , SPI3_HOSTを使用してください。
-            cfg.spi_mode = 1;             // SPI通信モードを設定 (0 ~ 3)
+            cfg.spi_mode = 0;             // SPI通信モードを設定 (0 ~ 3)
             //   cfg.freq_write = 1*1000*1000;    // 送信時のSPIクロック (最大80MHz, 80MHzを整数で割った値に丸められます)
             //   cfg.freq_write = 10*1000*1000;
-            cfg.freq_write = 10*1000*1000;
+            cfg.freq_write = 1*1000*1000;
             cfg.freq_read  = 16000000;    // 受信時のSPIクロック
-            cfg.spi_3wire  = true;        // 受信をMOSIピンで行う場合はtrueを設定
+            cfg.spi_3wire  = false;        // 受信をMOSIピンで行う場合はtrueを設定
             cfg.use_lock   = true;        // トランザクションロックを使用する場合はtrueを設定
             cfg.dma_channel = SPI_DMA_CH_AUTO; // 使用するDMAチャンネルを設定 (0=DMA不使用 / 1=1ch / 2=ch / SPI_DMA_CH_AUTO=自動設 定)
 
@@ -56,7 +56,7 @@ public:
 
             cfg.offset_x         =     0;  // パネルのX方向オフセット量
             cfg.offset_y         =     0;  // パネルのY方向オフセット量
-            cfg.offset_rotation  =     0;  // 回転方向の値のオフセット 0~7 (4~7は上下反転)
+            cfg.offset_rotation  =     1;  // 回転方向の値のオフセット 0~7 (4~7は上下反転)
             cfg.dummy_read_pixel =     8;  // ピクセル読出し前のダミーリードのビット数
             cfg.dummy_read_bits  =     1;  // ピクセル以外のデータ読出し前のダミーリードのビット数
             cfg.readable         =  true;  // データ読出しが可能な場合 trueに設定
