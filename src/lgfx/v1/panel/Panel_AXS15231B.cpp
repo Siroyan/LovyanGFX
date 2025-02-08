@@ -46,7 +46,23 @@ namespace lgfx
                 0xff, 0xff
             };
             this->command_list(cmds);
+
+            // set_rotation_by_dcc();
             return true;
+        }
+
+        void Panel_AXS15231B::set_rotation_by_dcc() {
+            ESP_LOGW("AXS15231B","set_rotation_by_dcc");
+
+            startWrite();
+            cs_control(false);
+
+            write_cmd(0x36);
+            _bus->writeCommand(0b00000000, 8);      // MV Reg to Hi
+            _bus->wait();
+            
+            cs_control(true);
+            endWrite();
         }
 
         void Panel_AXS15231B::setBrightness(uint8_t brightness)

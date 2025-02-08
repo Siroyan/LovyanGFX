@@ -43,6 +43,9 @@ namespace lgfx
             /* Override */
             void setBrightness(uint8_t brightness) override;
 
+            /* Add */
+            void set_rotation_by_dcc(void);
+
 
         protected:
             bool _in_transaction = false;
