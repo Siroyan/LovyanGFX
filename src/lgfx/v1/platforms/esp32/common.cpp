@@ -543,7 +543,7 @@ namespace lgfx
 
     cpp::result<void, error_t> initQuad(int spi_host, int spi_sclk, int spi_io0, int spi_io1, int spi_io2, int spi_io3, int dma_channel)
     {
-      //ESP_LOGI("LGFX","spi::init host:%d, sclk:%d, miso:%d, mosi:%d, dma:%d", spi_host, spi_sclk, spi_miso, spi_mosi, dma_channel);
+      // ESP_LOGI("LGFX","spi::init host:%d, sclk:%d, io0:%d, io1:%d, io2:%d, io3:%d, dma:%d", spi_host, spi_sclk, spi_io0, spi_io1, spi_io2, spi_io3, dma_channel);
       uint32_t spi_port = (spi_host + 1);
       (void)spi_port;
 
@@ -581,6 +581,7 @@ namespace lgfx
         buscfg.sclk_io_num = spi_sclk;
         buscfg.max_transfer_sz = 1;
         buscfg.flags = SPICOMMON_BUSFLAG_MASTER | SPICOMMON_BUSFLAG_QUAD;
+        buscfg.isr_cpu_id = INTR_CPU_ID_AUTO;
         buscfg.intr_flags = 0;
 
         if (ESP_OK != spi_bus_initialize(static_cast<spi_host_device_t>(spi_host), &buscfg, dma_channel))
